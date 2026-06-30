@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>АО «Жилищный трест №1» — Твой дом в надежных руках</title>
+    <style>
+        /* Ламповая палитра на основе макета */
+        :root {
+            --bg-color: #faf8f5;       /* Нежный молочно-кремовый фон */
+            --primary-green: #7d9e87;  /* Пастельный шалфейно-зеленый */
+            --accent-peach: #d9937e;   /* Мягкий персиково-терракотовый */
+            --text-dark: #3a3530;      /* Спокойный темно-серый */
+            --white: #ffffff;
+            --gray-light: #f2ede4;     /* Фон для второстепенных плашек */
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- ШАПКА САЙТА (HEADER) --- */
+        header {
+            background-color: var(--white);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+
+        .header-grid {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #b83c24; /* Красный акцент из оригинального логотипа */
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-sub {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .header-info {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            font-size: 0.9rem;
+            color: #6e655c;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-item strong {
+            color: var(--text-dark);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .btn-cabinet {
+            background-color: var(--accent-peach);
+            color: var(--white);
+            padding: 10px 24px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .btn-cabinet:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        /* Кнопка Бургера */
+        .burger-btn {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 24px;
+            height: 18px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 102;
+        }
+
+        .burger-btn span {
+            width: 100%;
+            height: 3px;
+            background-color: var(--accent-peach);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        /* Выпадающее мобильное меню */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100%;
+            background-color: var(--white);
+            box-shadow: -5px 0 25px rgba(0,0,0,0.05);
+            z-index: 101;
+            padding: 80px 30px;
+            transition: var(--transition);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .mobile-menu a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .mobile-menu a:hover {
+            color: var(--accent-peach);
+        }
+
+        /* --- ГЛАВНЫЙ БАННЕР (HERO) --- */
+        .hero-section {
+            margin: 20px 0 40px 0;
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            height: 280px;
+            background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            padding: 0 50px;
+        }
+
+        .hero-content {
+            color: var(--white);
+            max-width: 600px;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .search-bar {
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(5px);
+            padding: 8px 15px;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .search-bar input {
+            border: none;
+            background: transparent;
+            width: 100%;
+            padding: 6px;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            outline: none;
+        }
+
+        /* --- ИНТЕРАКТИВНЫЕ КАРТОЧКИ УСЛУГ --- */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .action-card {
+            border-radius: 16px;
+            padding: 25px 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.01);
+            transition: var(--transition);
+        }
+
+        .action-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.04);
+        }
+
+        .card-green { background-color: var(--primary-green); color: var(--white); }
+        .card-peach { background-color: var(--accent-peach); color: var(--white); }
+        .card-light-green { background-color: #e4ece7; color: var(--text-dark); }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .card-light-green .card-icon {
+            background-color: var(--primary-green);
+            color: var(--white);
+        }
+
+        .action-card h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .action-card p {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            margin-bottom: 15px;
+            min-height: 36px;
+        }
+
+        .card-btn {
+            background-color: var(--white);
+            color: var(--text-dark);
+            padding: 8px 20px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .card-btn:hover {
+            opacity: 0.95;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        /* --- ИНФОРМАЦИОННЫЙ БЛОК: КАРТА И СПИСОК --- */
+        .info-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+
+        .map-placeholder {
+            background-color: var(--white);
+            border-radius: 16px;
+            padding: 15px;
+            border: 1px solid #eaddce;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 260px;
+        }
+
+        .map-svg {
+            width: 100%;
+            height: 100%;
+            max-height: 230px;
+        }
+
+        .advantages-list h2 {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+        }
+
+        .advantage-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .adv-icon {
+            font-size: 1.3rem;
+            color: var(--primary-green);
+        }
+
+        .adv-text {
+            font-size: 0.95rem;
+            color: #5c554e;
+        }
+
+        /* --- НОВОСТИ И СОБЫТИЯ --- */
+        .news-section {
+            margin-bottom: 60px;
+        }
+
+        .news-section h2 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .news-card {
+            background-color: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            border: 1px solid #f0eae1;
+        }
+
+        .news-img {
+            width: 40%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .news-body {
+            padding: 20px;
+            width: 60%;
+        }
+
+        .news-body h3 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .news-body p {
+            font-size: 0.8rem;
+            color: #7d7368;
+        }
+
+        /* --- КНОПКА НАВЕРХ --- */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 45px;
+            height: 45px;
+            background-color: var(--white);
+            color: var(--text-dark);
+            border: 1px solid #e6ded4;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 99;
+        }
+
+        .scroll-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-to-top:hover {
+            background-color: var(--gray-light);
+            transform: translateY(-2px);
+        }
+
+        /* --- ФУТЕР (FOOTER) --- */
+        footer {
+            background-color: var(--primary-green);
+            color: var(--white);
+            padding: 40px 0;
+            font-size: 0.9rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1.5fr 1.3fr;
+            gap: 40px;
+        }
+
+        .footer-col h4 {
+            font-size: 1.05rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+            text-decoration: underline;
+        }
+
+        /* Форма обратной связи */
+        .footer-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-form input, .footer-form textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            font-size: 0.85rem;
+        }
+
+        .footer-form textarea {
+            height: 60px;
+            resize: none;
+        }
+
+        .btn-submit {
+            background-color: #f2ede4;
+            color: var(--text-dark);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            align-self: flex-start;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--white);
+        }
+
+        .footer-contacts p {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .social-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            background-color: rgba(255,255,255,0.3);
+        }
+
+        /* Адаптивность под мобильные */
+        @media (max-width: 968px) {
+            .header-info { display: none; }
+            .info-layout, .news-grid, .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+            .hero-section { padding: 0 20px; height: 220px; }
+            .hero-content h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ШАПКА САЙТА -->
+    <header>
+        <div class="container header-grid">
+            <div class="logo-section">
+                <span class="logo-title">АО</span>
+                <span class="logo-sub">"Жилищный трест №1"</span>
+            </div>
+            
+            <div class="header-info">
+                <div class="info-item">
+                    <span>📍 Нижневартовск</span>
+                </div>
+                <div class="info-item">
+                    <span>Локально info</span>
+                    <strong>(955) 777-18-70</strong>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <a href="#" class="btn-cabinet">Личный Кабинет</a>
+                <button class="burger-btn" id="burgerBtn" aria-label="Меню">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ВСПЛЫВАЮЩЕЕ БУРГЕР-МЕНЮ -->
+    <div class="mobile-menu" id="mobileMenu">
+        <ul>
+            <li><a href="#">Главная</a></li>
+            <li><a href="#">Услуги и Ремонт</a></li>
+            <li><a href="#">Тарифы и Квитанции</a></li>
+            <li><a href="#">Передача Показаний</a></li>
+            <li><a href="#">О компании</a></li>
+            <li><a href="#">Контакты</a></li>
+        </ul>
+    </div>
+
+    <div class="container">
+        
+        <!-- ГЛАВНЫЙ БАННЕР С ПОИСКОМ -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1>Жилищный трест №1.<br>Твой дом — в надежных руках.</h1>
+                <div class="search-bar">
+                    <input type="text" placeholder="Поиск услуги, дома или тарифа...">
+                    <span>🔍</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ПЛИТКА ИНТЕРАКТИВНЫХ КАРТОЧЕК -->
+        <section class="cards-grid">
+            <div class="action-card card-green">
+                <div>
+                    <div class="card-icon">🛠️</div>
+                    <h3>Услуги и Ремонт</h3>
+                    <p>Услуги мелкого ремонта, сантехники и электрики</p>
+                </div>
+                <a href="#" class="card-btn">Перейти</a>
+            </div>
+
+            <div class="action-card card-peach">
+                <div>
+                    <div class="card-icon">📄</div>
+                    <h3>Тарифы и Квитанции</h3>
+                    <p>Просмотр текущих тарифов, ЖКУ и истории начислений</p>
+                </div>
+                <a href="#" class="card-btn">Перейти</a>
+            </div>
+
+            <div class="action-card card-light-green">
+                <div>
+                    <div class="card-icon">📊</div>
+                    <h3>Передача Показаний</h3>
+                    <p>Удобный ввод показаний приборов учета онлайн</p>
+                </div>
+                <a href="#" class="card-btn">Перейти</a>
+            </div>
+        </section>
+
+        <!-- СЕКЦИЯ С КАРТОЙ И ПРЕИМУЩЕСТВАМИ -->
+        <section class="info-layout">
+            <div class="map-placeholder">
+                <!-- Стилизованный SVG вместо картинки карты -->
+                <svg class="map-svg" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="400" height="200" rx="12" fill="#f4f1ea"/>
+                    <path d="M50 20 L120 50 L180 30 L250 80 L350 40" stroke="#cbd6cd" stroke-width="6" stroke-linecap="round"/>
+                    <path d="M100 180 L150 120 L280 150 L320 90" stroke="#cbd6cd" stroke-width="4" stroke-linecap="round"/>
+                    <circle cx="180" cy="30" r="8" fill="#d9937e"/>
+                    <circle cx="250" cy="80" r="8" fill="#7d9e87"/>
+                    <circle cx="150" cy="120" r="8" fill="#b83c24"/>
+                    <text x="140" y="170" fill="#3a3530" font-size="14" font-weight="bold">Нижневартовск</text>
+                </svg>
+            </div>
+
+            <div class="advantages-list">
+                <h2>Как мы делаем ваш дом лучше</h2>
+                <div class="advantage-item">
+                    <span class="adv-icon">💡</span>
+                    <span class="adv-text">Свет во дворе и на детских площадках</span>
+                </div>
+                <div class="advantage-item">
+                    <span class="adv-icon">🔥</span>
+                    <span class="adv-text">Теплые подъезды в любые морозы</span>
+                </div>
+                <div class="advantage-item">
+                    <span class="adv-icon">🏠</span>
+                    <span class="adv-text">Своевременный ремонт и уход за зданиями</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ВАЖНЫЕ СОБЫТИЯ И НОВОСТИ -->
+        <section class="news-section">
+            <h2>Важные события и новости</h2>
+            <div class="news-grid">
+                <div class="news-card">
+                    <div class="news-img" style="background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=300&q=80');"></div>
+                    <div class="news-body">
+                        <h3>Плановые проверки</h3>
+                        <p>Информация о плановом осмотре инженерных систем вашего района.</p>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-img" style="background-image: url('https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=300&q=80');"></div>
+                    <div class="news-body">
+                        <h3>Благоустройство дворов</h3>
+                        <p>Нижневартовск становится уютнее: отчет о проделанной работе.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- КНОПКА НАВЕРХ -->
+    <button class="scroll-to-top" id="scrollTopBtn" aria-label="Наверх">↑</button>
+
+    <!-- ФУТЕР -->
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <h4>Полезное</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Документы</a></li>
+                    <li><a href="#">Заявки</a></li>
+                    <li><a href="#">Карта</a></li>
+                    <li><a href="#">О нас</a></li>
+                    <li><a href="#">Sitemap</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Форма обратной связи</h4>
+                <form class="footer-form" onsubmit="event.preventDefault(); alert('Сообщение отправлено!');">
+                    <input type="text" placeholder="Поиск или ваше имя">
+                    <textarea placeholder="Постройте обращение или задайте вопрос"></textarea>
+                    <button type="submit" class="btn-submit">Форма</button>
+                </form>
+            </div>
+
+            <div class="footer-col footer-contacts">
+                <h4>Адрес и Контакты</h4>
+                <p>📍 г. Нижневартовск, ул. Набережная</p>
+                <p>📞 +7 (953) 533-18-20</p>
+                <p>📞 +7 (953) 533-18-77</p>
+                <p>⚠️ Личный кабинет доступен 24/7</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon">VK</a>
+                    <a href="#" class="social-icon">TG</a>
+                    <a href="#" class="social-icon">OK</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- СКРИПТЫ ИНТЕРАКТИВНОСТИ -->
+    <script>
+        // Бургер-меню
+        const burgerBtn = document.getElementById('burgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        burgerBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            
+            // Красивая плавная трансформация триггера бургера
+            const spans = burgerBtn.querySelectorAll('span');
+            if(mobileMenu.classList.contains('active')) {
+                spans[0].style.transform = 'rotate(45deg) translate(4px, 4px)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'rotate(-45deg) translate(6px, -7px)';
+            } else {
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        });
+
+        // Кнопка Вверх (Scroll to Top)
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 250) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
